@@ -19,7 +19,7 @@ const questions = [
    
     {
         type:'input',
-        name:'projetc name',
+        name:'name',
         message:'What is your project name'
     },
    
@@ -45,31 +45,24 @@ const questions = [
    
 
 ];
-inquirer.prompt(questions).then(answers => {
-    console.log(answers)
-    // you need to import the generateMardown file into this folder
-    // Then when all answers are submitted, then you have to write it to a file and push in the generateMardown functionality into that file
-    function generateMarkdown(data) {
-        return `# ${data.title}
-      
-      `;
-      }
-})
 
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
+function writeToFile( data) {
     // You need to look up how to write to a file using the FS library
-    fs.answers('index.js', data, prompt)
-    console.log(err)
+    return fs.writeFile('README.md',data, err => {
+        if (err) console.log(err)
+    })
+    
 }
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer.prompt(questions).then((answers) => {
         const data = generateMarkdown(answers);
-        console.log(answers);
-        answers('README.md', data);
+        console.log(data)
+        writeToFile(data)
+
     })
 }
 
